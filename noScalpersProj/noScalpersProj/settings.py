@@ -26,21 +26,30 @@ SECRET_KEY = 'q6v64#2sew175wcjun@g0xyyg@ix69#45$w_562c2)de$2pnb+'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+CORS_ALLOW_CREDENTIALS = True
 
+CORS_ORIGIN_WHITELIST = (
+    'google.com',
+    'hostname.example.com',
+    'localhost:8000',
+    '127.0.0.1:9000'
+)
 
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'noScalpersApp'
+    'noScalpersApp',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -67,6 +76,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'noScalpersProj.wsgi.application'
 
