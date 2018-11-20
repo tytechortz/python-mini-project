@@ -1,0 +1,13 @@
+.searchResults {
+    height: 500px;
+    overflow: scroll;
+    text-align: left
+}
+
+.card-subtitle{
+    margin: 10px!important;
+}
+
+.result-card {
+    margin: 30px 0;
+}

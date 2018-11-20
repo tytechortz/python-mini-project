@@ -17,7 +17,7 @@ class Posts(View):
 
             user = User.objects.get(id=request.user.id)
 
-            post_list = list(user.post.all().values())
+            post_list = list(User.post.all().values())
 
             return JsonResponse({
                 'Content-Type': 'application/json',

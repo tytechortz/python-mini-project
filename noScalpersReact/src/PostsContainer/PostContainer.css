@@ -1,0 +1,20 @@
+
+
+.post-list {
+    height: 500px;
+    overflow: scroll;
+}
+
+.btn {
+    margin: 12px!important;
+    padding: 5px 20px!important;
+}
+
+p.card-text {
+    text-align: left;
+}
+
+.post-list {
+
+    margin: 2em;
+}
