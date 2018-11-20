@@ -58,5 +58,5 @@ class User_Detail(View):
 
     def get(self, request, pk):
         user = list(User.objects.filter(pk=pk).values())
-        user_posts = list(Post.objects.filter(created_by_id=pk).values())
+        user_posts = list(Post.objects.filter(author=pk).values())
         return JsonResponse({"data": {"user": user, "posts": user_posts}}, safe=False)

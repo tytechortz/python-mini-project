@@ -12,7 +12,7 @@ class PostDetail extends Component {
             postToEdit: {
                 title: props.post.title,
                 commentBody: props.post.commentBody,
-                _id: props.post._id
+                id: props.post.id
               },
 
         }
@@ -60,7 +60,7 @@ class PostDetail extends Component {
                         <CardBody>
                             <CardTitle className="card-title">{this.props.post.title}</CardTitle>
                             <CardText>{this.props.post.commentBody}</CardText>
-                            <Button color="danger" onClick={this.props.deletePost.bind(null, this.props.post._id)}>Delete</Button>
+                            <Button color="danger" onClick={this.props.deletePost.bind(null, this.props.post.id)}>Delete</Button>
                             <Button color="info" onClick={this.toggle}>Edit</Button>
                         </CardBody>
                     </Card>

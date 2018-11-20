@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 import json
 
 
+
 class Posts(View):
     def get(self, request):
 
@@ -17,7 +18,7 @@ class Posts(View):
 
             user = User.objects.get(id=request.user.id)
 
-            post_list = list(User.post.all().values())
+            post_list = list(user.posts.all().values())
 
             return JsonResponse({
                 'Content-Type': 'application/json',
@@ -39,9 +40,9 @@ class Posts(View):
         data = json.loads(data)
 
         try:
-            new_post = Post(title=data["title"], author=data["author"], commentBody=data["commentBody"])
+            new_post = Post(title=data["title"], author=request.user, commentBody=data["commentBody"])
 
-            new_post.created_by = request.user
+            # new_post.created_by = request.user
             new_post.save()
             data["id"] = new_post.id
             print(data, ' this is sdatataatatataatta', request.user)
@@ -71,7 +72,7 @@ class Post_Detail(View):
                 if key == "author":
                     edit_post.author = data[key]
                 if key == "commentBody":
-                    edit_post.year = data[key]
+                    edit_post.commentBody = data[key]
             edit_post.save()
             data["id"] = edit_post.id
             return JsonResponse({"data": data}, safe=False)

@@ -31,7 +31,20 @@ class App extends Component {
         password: ""
       }
   }
-  
+  componentDidMount(){
+    this.getToken()
+    console.log('GOT TOKEN********')
+  }
+
+  getToken = async () => {
+    const token = await fetch('http://localhost:8000/users/getToken', {
+      method: 'get',
+      credentials: 'include', // this sends our session cookie with our request
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  }
   handleInputs = (e) => {
   this.setState({
     [e.currentTarget.name]: e.currentTarget.value
@@ -41,14 +54,16 @@ class App extends Component {
   handleRegistration = async (e) => {
   e.preventDefault();
   console.log(this.state);
+  const csrfCookie = Cookie('csrftoken');
 
   try{
-    const createdUser = await fetch('http://localhost:8000/users', {
+    const createdUser = await fetch('http://localhost:8000/users/', {
       credentials: 'include',
       method: 'POST',
       body: JSON.stringify(this.state),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfCookie,
       } 
     });
     const createdUserJSON = await createdUser.json();
@@ -80,7 +95,7 @@ class App extends Component {
         headers: {
           'Content-Type': 'application/json',
           'X-CSRFToken': csrfCookie,
-        } 
+        }, 
       });
       console.log(foundUser , "Getting here")
       const foundUserJSON = await foundUser.json();
@@ -88,8 +103,8 @@ class App extends Component {
       if(foundUser.status == 200){
         this.setState({
           loggedIn: true,
-          username: foundUserJSON.data.username,
-          password: foundUserJSON.data.password
+          username: this.state.username,
+          password: this.state.password
         })
         console.log(this.state, '<----user is loggedin')
         console.log(this.state.username, "<---- username bro")
@@ -100,7 +115,19 @@ class App extends Component {
       console.log(err, " error")
     }
     }
-  
+    
+    getToken = async () => {
+      const token = await fetch('http://localhost:8000/users/getToken', {
+        method: 'get',
+        credentials: 'include', // this sends our session cookie with our request
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const tokenResponse = token.json();
+      return tokenResponse;
+    }
   
    render() {
     return (
